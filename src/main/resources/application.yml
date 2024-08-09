@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: mymydata
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-4o-mini
+  batch:
+    jdbc:
+      initialize-schema: never
