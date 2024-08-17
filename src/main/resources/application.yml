@@ -7,6 +7,31 @@ spring:
       chat:
         options:
           model: gpt-4o-mini
+          temperature: 0.2
+      embedding:
+        options:
+          model: text-embedding-3-small
+    vectorstore:
+      chroma:
+        collection-name: SpringAiCollection
+        initialize-schema: true
+    retry:
+      max-attempts: 5
+      on-client-errors: true
+      backoff:
+        multiplier: 2
+        initial-interval: 3000ms
+      exclude-on-http-codes: 400
   batch:
     jdbc:
       initialize-schema: never
+
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: debug
+    org.atmosphere: warn
+
+app:
+  resources: https://www.mydatacenter.or.kr:3441/cmmn/fileBrDownload?id=JHuKqjlWK0e%2FH9Yi7ed09GsZWL6TiRKp9yg4qGj%2FKFmV9RC6j8RJdh6I8JAqzoFv&type=2,https://www.mydatacenter.or.kr:3441/cmmn/fileBrDownload?id=dKi%2B7cAM4PO8JA4z7jwm4AoM07vmQIbSKQ9EvM0DPRYokFCd%2BhLigsDUZ0hQopjD&type=2
+  vectorstore:
+    target: simple
