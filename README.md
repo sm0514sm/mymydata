@@ -1,5 +1,5 @@
 # 마이데이터 에이전트 프로젝트
-
+[test.webm](https://github.com/user-attachments/assets/51a30560-4672-4bcc-957d-c5f4090da20d)
 ## 프로젝트 개요
 
 이 프로젝트는 마이데이터 공식 문서를 기반으로 정책과 기술 사양 등을 답변해주는 AI 에이전트를 구현한 것입니다. Spring Boot와 Spring AI를 기반으로 구축되었으며, RAG(Retrieval-Augmented Generation) 기술을 활용하여 사용자 질문에 정확하고 관련성 있는 답변을 제공합니다.
@@ -14,6 +14,7 @@
 
 ## 기술 스택
 
+
 - Java 21
 - Spring Boot
 - Spring AI
@@ -25,7 +26,7 @@
 
 1. 저장소 클론:
    ```
-   git clone TODO:[URL]
+   git clone https://github.com/sm0514sm/mymydata.git
    ```
 
 2. 프로젝트 디렉토리로 이동:
