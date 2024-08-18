@@ -20,7 +20,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("단일 요소 추가 테스트")
+    @DisplayName("단일 요소 추가")
     void addSingleElementTest() {
         list.add(5);
         assertEquals(1, list.stream().count());
@@ -28,7 +28,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("여러 요소 추가 테스트")
+    @DisplayName("여러 요소 추가")
     void addMultipleElementsTest() {
         list.add(3);
         list.add(1);
@@ -41,7 +41,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("최대 크기 초과 테스트")
+    @DisplayName("최대 크기 초과")
     void exceedLimitTest() {
         list.add(6);
         list.add(2);
@@ -56,7 +56,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("컬렉션 일괄 추가 테스트")
+    @DisplayName("컬렉션 일괄 추가")
     void addAllTest() {
         List<Integer> numbers = Arrays.asList(5, 2, 8, 1, 9, 3);
         list.addAll(numbers);
@@ -67,7 +67,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("마지막 요소 가져오기 테스트")
+    @DisplayName("마지막 요소 가져오기")
     void getLastTest() {
         assertTrue(list.getLast().isEmpty());
 
@@ -79,7 +79,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("역순 정렬 테스트")
+    @DisplayName("역순 정렬")
     void reverseOrderTest() {
         LimitedSortedAppendOnlyList<Integer> reverseList = new LimitedSortedAppendOnlyList<Integer>(5, Comparator.reverseOrder());
         reverseList.add(3);
@@ -93,7 +93,7 @@ class LimitedSortedAppendOnlyListTest {
     }
 
     @Test
-    @DisplayName("문자열 정렬 테스트")
+    @DisplayName("문자열 정렬")
     void stringOrderTest() {
         LimitedSortedAppendOnlyList<String> stringList = new LimitedSortedAppendOnlyList<String>(5, Comparator.naturalOrder());
         stringList.add("banana");
