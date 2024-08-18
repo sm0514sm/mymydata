@@ -76,6 +76,13 @@ public class LimitedSortedAppendOnlyList<T> {
      * 리스트를 초기화합니다.
      */
     public void clear() {
-        this.items.clear();
+        items.clear();
+    }
+
+    /**
+     * 리스트의 특정 요소를 삭제합니다.
+     */
+    public void remove(T item) {
+        items.remove(item);
     }
 }

@@ -34,6 +34,7 @@ public class LobbyView extends VerticalLayout {
         expand(channels);
 
         channelNameField = new TextField();
+        channelNameField.setMaxLength(20);
         channelNameField.setPlaceholder("New channel name");
 
         addChannelButton = new Button("Add channel", event -> addChannel());

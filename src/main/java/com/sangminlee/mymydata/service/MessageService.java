@@ -72,6 +72,5 @@ public class MessageService {
      */
     public void deleteLastUserMessage(String channelId) {
         messageRepository.deleteLastUserMessage(channelId);
-        sink.tryEmitNext(new Message("DELETION_NOTIFICATION", channelId, -1L, null, "SYSTEM", "MESSAGE_DELETED", 0));
     }
 }

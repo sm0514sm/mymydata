@@ -4,6 +4,7 @@ import com.sangminlee.mymydata.constant.Author;
 import com.sangminlee.mymydata.vo.NewMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.retry.NonTransientAiException;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
@@ -48,7 +49,7 @@ public class ChatService {
      * @param message   사용자 메시지 내용
      * @throws IllegalArgumentException 지정된 채널이 존재하지 않는 경우
      */
-    public void answerMessage(String channelId, String message, Resource resource) {
+    public void answerMessage(String channelId, String message, Resource resource) throws NonTransientAiException {
         ChatClient.ChatClientRequestSpec requestSpec = chatClient.prompt()
                 .user(message)
                 .advisors(a ->

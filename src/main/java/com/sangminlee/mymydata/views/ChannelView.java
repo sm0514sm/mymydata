@@ -10,6 +10,8 @@ import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.messages.MessageInput;
 import com.vaadin.flow.component.messages.MessageList;
 import com.vaadin.flow.component.messages.MessageListItem;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
@@ -117,7 +119,8 @@ public class ChannelView extends VerticalLayout implements HasUrlParameter<Strin
     }
 
     /**
-     * 사용자가 입력한 메시지를 전송합니다.
+     * 사용자가 입력한 메시지를 전송합니다. <br>
+     * 예외 처리 발생 시 (토큰 제한 초과, rate limit 초과 등), 마지막으로 입력한 메세지를 삭제합니다.
      *
      * @param event 메시지 제출 이벤트
      */
@@ -131,9 +134,19 @@ public class ChannelView extends VerticalLayout implements HasUrlParameter<Strin
 
         CompletableFuture
                 .runAsync(() -> chatService.postMessage(channelId, message, Author.USER))
-                .thenAccept((result -> {
-                    chatService.answerMessage(channelId, message, uploadedFile);
-                }))
+                .thenAccept((result -> chatService.answerMessage(channelId, message, uploadedFile)))
+                .exceptionally(ex -> {
+                    messageService.deleteLastUserMessage(channelId);
+                    getUI().ifPresent(ui -> ui.access(() -> {
+                        Notification notification = Notification.show(
+                                "오류 발생: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
+                        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                        notification.open();
+                    }));
+                    receivedMessages.getLast().ifPresent(receivedMessages::remove);
+                    receiveMessages(List.of());
+                    return null;
+                })
                 .thenRun(() -> getUI().ifPresent(ui -> ui.access(upload::clearFileList)));
     }
 
