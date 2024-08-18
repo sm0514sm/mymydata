@@ -1,5 +1,6 @@
 # 마이데이터 에이전트 프로젝트
-[test.webm](https://github.com/user-attachments/assets/51a30560-4672-4bcc-957d-c5f4090da20d)
+[mymydata.webm](https://github.com/user-attachments/assets/0986fedb-5156-4f82-8eaa-f39ec93406fb)
+
 
 ## 프로젝트 개요
 
