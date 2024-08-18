@@ -4,7 +4,6 @@ import com.sangminlee.mymydata.constant.Author;
 import com.sangminlee.mymydata.vo.NewMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.retry.NonTransientAiException;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
