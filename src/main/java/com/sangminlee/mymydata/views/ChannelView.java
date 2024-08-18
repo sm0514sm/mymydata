@@ -106,8 +106,10 @@ public class ChannelView extends VerticalLayout implements HasUrlParameter<Strin
     @Override
     public void setParameter(BeforeEvent event, String channelId) {
         channelService.getChannel(channelId)
-                .ifPresentOrElse(channel -> this.channelName = channel.name(),
-                        () -> event.forwardTo(LobbyView.class));
+                .ifPresentOrElse(
+                        channel -> this.channelName = channel.name(),
+                        () -> event.forwardTo(LobbyView.class)
+                );
         this.channelId = channelId;
         receivedMessages.clear();
         var subscription = subscribe();
@@ -129,7 +131,9 @@ public class ChannelView extends VerticalLayout implements HasUrlParameter<Strin
 
         CompletableFuture
                 .runAsync(() -> chatService.postMessage(channelId, message, Author.USER))
-                .thenAccept((result -> chatService.answerMessage(channelId, message, uploadedFile)))
+                .thenAccept((result -> {
+                    chatService.answerMessage(channelId, message, uploadedFile);
+                }))
                 .thenRun(() -> getUI().ifPresent(ui -> ui.access(upload::clearFileList)));
     }
 

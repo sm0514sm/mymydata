@@ -4,7 +4,7 @@ import com.sangminlee.mymydata.constant.Author;
 import com.sangminlee.mymydata.vo.NewMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.retry.NonTransientAiException;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
@@ -25,11 +25,10 @@ public class ChatService {
     private final ChannelService channelService;
     private final MessageService messageService;
     private final ChatClient chatClient;
-    private final ChatModel chatModel;
     private final Clock clock;
 
     /**
-     * 사용자 메시지를 처리하고 저장합니다.
+     * 메시지를 처리하고 저장합니다.
      *
      * @param channelId 메시지가 속한 채널 ID
      * @param message   사용자 메시지 내용
@@ -45,10 +44,6 @@ public class ChatService {
 
     /**
      * 사용자 메시지에 대한 AI 응답을 생성하고 저장합니다.
-     * 이 메서드는 다음과 같은 단계로 작동합니다: <br>
-     * 1. 채널 존재 여부 확인 <br>
-     * 2. AI 모델을 사용하여 응답 생성 <br>
-     * 3. 생성된 응답을 메시지로 저장 <br>
      *
      * @param channelId 메시지가 속한 채널 ID
      * @param message   사용자 메시지 내용
