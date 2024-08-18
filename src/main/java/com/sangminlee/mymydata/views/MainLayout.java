@@ -1,8 +1,6 @@
 package com.sangminlee.mymydata.views;
 
 import com.sangminlee.mymydata.service.ChannelService;
-import com.sangminlee.mymydata.vo.Channel;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H2;

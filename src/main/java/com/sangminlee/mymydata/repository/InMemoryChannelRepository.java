@@ -1,6 +1,7 @@
 package com.sangminlee.mymydata.repository;
 
 import com.sangminlee.mymydata.vo.Channel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
@@ -11,14 +12,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Component
+@RequiredArgsConstructor
 class InMemoryChannelRepository implements ChannelRepository {
 
     private final MessageRepository messageRepository;
     private final ConcurrentMap<String, Channel> channels = new ConcurrentHashMap<>();
-
-    InMemoryChannelRepository(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
 
     @Override
     public List<Channel> findAll() {

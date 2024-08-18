@@ -1,19 +1,20 @@
 # 마이데이터 에이전트 프로젝트
 [test.webm](https://github.com/user-attachments/assets/51a30560-4672-4bcc-957d-c5f4090da20d)
+
 ## 프로젝트 개요
 
 이 프로젝트는 마이데이터 공식 문서를 기반으로 정책과 기술 사양 등을 답변해주는 AI 에이전트를 구현한 것입니다. Spring Boot와 Spring AI를 기반으로 구축되었으며, RAG(Retrieval-Augmented Generation) 기술을 활용하여 사용자 질문에 정확하고 관련성 있는 답변을 제공합니다.
 
-## 주요 기능
+## 주요 구현 기능
 
-- 마이데이터 관련 질문에 대한 AI 기반 응답
-- 웹 인터페이스를 통한 사용자 상호작용
+- 주어진 리소스 기반으로 마이데이터 관련 질문에 대한 AI 기반 응답
+- 채팅 기억 관리자를 통한 멀티턴 에이전트 구현
+- 멀티모달 지원
 - 실시간 채팅 기능
 - 다중 채널 지원
-- 동시성 처리를 통한 효율적인 요청 처리
+- 요청 토큰 수 초과 및 500 에러 발생시 재시도 지원
 
 ## 기술 스택
-
 
 - Java 21
 - Spring Boot
@@ -56,10 +57,14 @@
 
 - OpenAI API 키: `spring.ai.openai.api-key`
 - 사용할 OpenAI LLM 모델: `spring.ai.openai.chat.options.model`
+- 응답 temperature: `spring.ai.openai.chat.options.temperature`
+  - 응답의 정확함을 위해 기본값보다 낮은 0.2로 설정하였습니다. 필요 시 값을 수정해주세요.
 - 사용할 OpenAI embedding 모델: `spring.ai.openai.embedding.options.model`
-- OpenAI가 아닌 다른 모델을 사용할 경우, 적절한 자동구성 dependency를 추가해야합니다. https://docs.spring.io/spring-ai/reference/api/chatmodel.html
+- OpenAI가 아닌 다른 모델을 사용할 경우, 적절한 자동구성 dependency를 추가해야합니다. 
+  - https://docs.spring.io/spring-ai/reference/api/chatmodel.html
 - 벡터 스토어 설정: `app.vectorstore.target`
   - 선택 가능한 벡터 스토어: simple, chroma (chroma 지정 시 초기 데이터베이스 설정에 1시간 이상 소요될 수 있습니다.)
+  - simple vectorstore는 프로젝트 최상단에 simple-vectorstore.json으로 저장되어있습니다.
 - 마이데이터 문서 URL: `app.resources`
 
 ## 사용 방법

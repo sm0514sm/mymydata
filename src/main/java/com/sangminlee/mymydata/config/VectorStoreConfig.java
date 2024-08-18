@@ -30,6 +30,12 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * 벡터 스토어 설정을 위한 구성 클래스입니다.
+ * 이 클래스는 SimpleVectorStore와 ChromaVectorStore를 조건부로 설정합니다.
+ * 두 벡터 스토어 구현(Simple, Chroma) 중 하나를 선택적으로 사용할 수 있도록 설계되어 있어,
+ * 애플리케이션의 요구사항에 따라 유연하게 벡터 스토어를 선택할 수 있습니다.
+ */
 @Getter
 @Setter
 @Configuration
@@ -48,6 +54,14 @@ public class VectorStoreConfig {
     @Value("classpath:/prompt/default-summary-prompt.st")
     private Resource defaultSummaryPromptResource;
 
+    /**
+     * SimpleVectorStore 빈을 생성하고 구성합니다.
+     * 'app.vectorstore.target' 속성이 'simple'일 때 활성화됩니다.
+     * 생성한 vectorstore 파일은 프로젝트 최상단에 저장됩니다.
+     *
+     * @return 구성된 SimpleVectorStore 인스턴스
+     * @throws IOException 파일 처리 중 오류 발생 시
+     */
     @Bean
     @ConditionalOnProperty(name = "app.vectorstore.target", havingValue = "simple", matchIfMissing = true)
     SimpleVectorStore simpleVectorStore() throws IOException {
@@ -62,6 +76,14 @@ public class VectorStoreConfig {
         return vectorStore;
     }
 
+    /**
+     * ChromaVectorStore 빈을 생성하고 구성합니다.
+     * 'app.vectorstore.target' 속성이 'chroma'일 때 활성화됩니다.
+     *
+     * @param chromaApi ChromaApi 인스턴스
+     * @return 구성된 ChromaVectorStore 인스턴스
+     * @throws Exception 벡터 스토어 처리 중 오류 발생 시
+     */
     @Bean
     @Primary
     @ConditionalOnProperty(name = "app.vectorstore.target", havingValue = "chroma")
@@ -78,6 +100,12 @@ public class VectorStoreConfig {
         return vectorStore;
     }
 
+    /**
+     * PDF 문서를 처리하여 Document 리스트를 생성합니다.
+     *
+     * @return 처리된 Document 리스트
+     * @throws IOException 문서 처리 중 오류 발생 시
+     */
     private List<Document> processPdfDocuments() throws IOException {
         String defaultSummaryPrompt = defaultSummaryPromptResource.getContentAsString(Charset.defaultCharset());
 
